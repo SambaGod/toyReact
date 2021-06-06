@@ -19,10 +19,13 @@ class DishDetail extends Component {
     }
   }
 
+  renderComments() {
+    // 
+  }
+
   render() {
-    // Instead of using a renderComments function which I find unnecessary, I simply iterated over the received information via comments props
     const kommente =
-      this.props.comments != null // Run the code below if comments are not empty
+      this.props.comments != null
         ? this.props.comments.map(komment => {
             return (
               <div key={komment.id} className='mb-5'>
@@ -31,13 +34,12 @@ class DishDetail extends Component {
                   -- {komment.author}{' '}
                   <span className='text-secondary'>
                     | {new Date(komment.date).toLocaleDateString('de-de')}{' '}
-                    {/* Formating date to German format */}
                   </span>
                 </p>
               </div>
             );
           })
-        : ''; // Return empty if not comments were passed
+        : '';
 
     return (
       <div className='row my-1'>
