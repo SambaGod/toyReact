@@ -29,12 +29,14 @@ class Main extends Component {
         </Navbar>
         <Menu
           dishes={this.state.dishes}
-          onClick={(dishId) => this.onDishSelect(dishId, dishId.comments)}
+          onClick={(dishId, dishComments) => this.onDishSelect(dishId, dishComments)}
         />
-        <DishDetail
-          dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}
-          comments={this.state.selectedDishComments}
-        />
+        <div className="container">
+          <DishDetail
+            dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}
+            comments={this.state.selectedDishComments}
+          />
+        </div>
       </div>
     );
   }

@@ -2,19 +2,12 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 
 class Menu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedDish: null,
-      selectedDishComments: null,
-    };
-  }
 
   render() {
     const menu = this.props.dishes.map(dish => {
       return (
         <div key={dish.id} className='col-md-6 col-sm-12 my-1'>
-          <Card onClick={() => this.props.onClick(dish.id)}>
+          <Card onClick={() => this.props.onClick(dish.id, dish.comments)}>
             <CardImg top width='100%' src={dish.image} alt={dish.name} />
             <CardImgOverlay>
               <CardTitle tag='h2'>{dish.name}</CardTitle>

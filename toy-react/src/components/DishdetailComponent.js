@@ -19,8 +19,26 @@ class DishDetail extends Component {
     }
   }
 
-  renderComments() {
-    // 
+  renderComments(comments) {
+    const kommente =
+      comments != null
+        ? comments.map(komment => {
+            return (
+              <div key={komment.id} className='mb-5'>
+                <p>{komment.comment}</p>
+                <p>
+                  -- {komment.author}{' '}
+                  <span className='text-secondary'>
+                    | {new Date(komment.date).toLocaleDateString('de-de')}{' '}
+                  </span>
+                </p>
+              </div>
+            );
+          })
+        : '';
+        return (
+          <li className="list-group-item">{kommente}</li>
+        );
   }
 
   render() {
@@ -43,18 +61,17 @@ class DishDetail extends Component {
 
     return (
       <div className='row my-1'>
-        {/* Dish details */}
         <div className='col-md-6 col-12'>
           {this.renderDish(this.props.dish)}
         </div>
 
-        {/* Comments */}
         <div className='col-md-6 col-12'>
-          {/* show the heading if comments are not empty */}
           <h4 className={`mt-2 ${this.props.comments == null ? 'd-none' : ''}`}>
             Comments
           </h4>
-          {kommente}
+          <ul className="list-group">
+            {this.renderComments(this.props.comments)}
+          </ul>
         </div>
       </div>
     );
