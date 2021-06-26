@@ -1,13 +1,12 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import Main from './components/MainComponent';
 
 class App extends Component {
-
   render() {
     return (
-      <div>
+      <Fragment>
         <Main />
-      </div>
+      </Fragment>
     );
   }
 }

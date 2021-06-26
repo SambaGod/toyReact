@@ -2,12 +2,13 @@ import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
 
 const RenderDish = ({ dish }) => {
   if (dish != null) {
+    const { image, name, description } = dish;
     return (
       <Card>
-        <CardImg top width='100%' src={dish.image} alt={dish.name} />
+        <CardImg top width='100%' src={image} alt={name} />
         <CardBody>
-          <CardTitle tag='h2'>{dish.name}</CardTitle>
-          <CardText>{dish.description}</CardText>
+          <CardTitle tag='h2'>{name}</CardTitle>
+          <CardText>{description}</CardText>
         </CardBody>
       </Card>
     );
@@ -20,13 +21,14 @@ const RenderComments = ({ comments }) => {
   const kommente =
     comments != null
       ? comments.map(komment => {
+          const { id, comment, author, date } = komment;
           return (
-            <div key={komment.id} className='mb-5'>
-              <p>{komment.comment}</p>
+            <div key={id} className='mb-5'>
+              <p>{comment}</p>
               <p>
-                -- {komment.author}{' '}
+                -- {author}{' '}
                 <span className='text-secondary'>
-                  | {new Date(komment.date).toLocaleDateString('de-de')}{' '}
+                  | {new Date(date).toLocaleDateString('de-de')}{' '}
                 </span>
               </p>
             </div>
@@ -37,22 +39,21 @@ const RenderComments = ({ comments }) => {
 };
 
 const DishDetail = props => {
+  const { dish, comments } = props;
   return (
     <div className='row my-1'>
       <div className='col-md-6 col-12'>
-        <RenderDish dish={props.dish} />
+        <RenderDish dish={dish} />
       </div>
 
-      <div
-        className={`col-md-6 col-12 mt-2 ${
-          props.comments == null ? 'd-none' : ''
-        }`}
-      >
-        <ul className='list-group'>
-          <h4>Comments</h4>
-          <RenderComments comments={props.comments} />
-        </ul>
-      </div>
+      {comments !== null && (
+        <div className='col-md-6 col-12 mt-2'>
+          <ul className='list-group'>
+            <h4>Comments</h4>
+            <RenderComments comments={comments} />
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
