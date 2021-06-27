@@ -1,7 +1,17 @@
-import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
+import React from 'react';
+import {
+  Card,
+  CardImg,
+  CardTitle,
+  CardText,
+  CardBody,
+  Breadcrumb,
+  BreadcrumbItem,
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const RenderDish = ({ dish }) => {
-  if (dish != null) {
+  if (dish !== null) {
     const { image, name, description } = dish;
     return (
       <Card>
@@ -41,19 +51,32 @@ const RenderComments = ({ comments }) => {
 const DishDetail = props => {
   const { dish, comments } = props;
   return (
-    <div className='row my-1'>
-      <div className='col-md-6 col-12'>
-        <RenderDish dish={dish} />
-      </div>
-
-      {comments !== null && (
-        <div className='col-md-6 col-12 mt-2'>
-          <ul className='list-group'>
-            <h4>Comments</h4>
-            <RenderComments comments={comments} />
-          </ul>
+    <div className='container'>
+      <div className='row'>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to='/menu'>Menu</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
+        </Breadcrumb>
+        <div className='col-12'>
+          <h3>{dish.name}</h3>
+          <hr />
         </div>
-      )}
+      </div>
+      <div className='row my-1'>
+        <div className='col-md-6 col-12'>
+          <RenderDish dish={dish} />
+        </div>
+        {comments !== null && (
+          <div className='col-md-6 col-12 mt-2'>
+            <ul className='list-group'>
+              <h4>Comments</h4>
+              <RenderComments comments={comments} />
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

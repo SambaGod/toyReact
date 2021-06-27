@@ -1,6 +1,7 @@
 import { Component, Fragment } from 'react';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
+import DishDetail from './DishdetailComponent';
 import Contact from './ContactComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
@@ -23,16 +24,32 @@ class Main extends Component {
 
   render() {
     const HomePage = () => {
+      const { dishes, promotions, leaders } = this.state;
       return (
         <Home
-          dish={this.state.dishes.filter(dish => dish.featured)[0]}
-          promotion={
-            this.state.promotions.filter(promotion => promotion.featured)[0]
-          }
-          leader={this.state.leaders.filter(leader => leader.featured)[0]}
+          dish={dishes.filter(dish => dish.featured)[0]}
+          promotion={promotions.filter(promotion => promotion.featured)[0]}
+          leader={leaders.filter(leader => leader.featured)[0]}
         />
       );
     };
+
+    const DishWithId = ({ match }) => {
+      const { dishes, comments } = this.state;
+      return (
+        <DishDetail
+          dish={
+            dishes.filter(
+              dish => dish.id === parseInt(match.params.dishId, 10) // match.params.{prop} gets the prop from route URI
+            )[0]
+          }
+          comments={comments.filter(
+            comment => comment.dishId === parseInt(match.params.dishId, 10)
+          )}
+        />
+      );
+    };
+
     return (
       <Fragment>
         <Header />
@@ -43,6 +60,7 @@ class Main extends Component {
             path='/menu'
             component={() => <Menu dishes={this.state.dishes} />}
           />
+          <Route path='/menu/:dishId' component={DishWithId} />
           <Route exact path='/contactus' component={Contact} />
           <Redirect to='/home' />
         </Switch>
