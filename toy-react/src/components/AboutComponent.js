@@ -9,8 +9,8 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-const RenderLeader = props => {
-  const { image, name, designation, description } = props.leader;
+const RenderLeader = ({ leader }) => {
+  const { image, name, designation, description } = leader;
   return (
     <Media className='row pb-5'>
       <Media className='col-2 pb-3'>

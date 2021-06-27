@@ -51,6 +51,7 @@ class Main extends Component {
       );
     };
 
+    const { dishes, leaders } = this.state;
     return (
       <Fragment>
         <Header />
@@ -59,11 +60,11 @@ class Main extends Component {
           <Route
             exact
             path='/menu'
-            component={() => <Menu dishes={this.state.dishes} />}
+            component={() => <Menu dishes={dishes} />}
           />
           <Route
             path='/aboutus'
-            component={() => <About leaders={this.state.leaders} />}
+            component={() => <About leaders={leaders} />}
           />
           <Route path='/menu/:dishId' component={DishWithId} />
           <Route exact path='/contactus' component={Contact} />
