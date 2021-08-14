@@ -9,6 +9,7 @@ import {
   BreadcrumbItem,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import CommentForm from './CommentForm';
 
 const RenderDish = ({ dish }) => {
   if (dish !== null) {
@@ -68,14 +69,15 @@ const DishDetail = props => {
         <div className='col-md-6 col-12'>
           <RenderDish dish={dish} />
         </div>
+        <div className='col-md-6 col-12 mt-2'>
         {comments !== null && (
-          <div className='col-md-6 col-12 mt-2'>
             <ul className='list-group'>
               <h4>Comments</h4>
               <RenderComments comments={comments} />
             </ul>
-          </div>
         )}
+          <CommentForm />
+        </div>
       </div>
     </div>
   );
