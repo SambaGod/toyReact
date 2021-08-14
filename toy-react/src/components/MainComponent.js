@@ -6,26 +6,24 @@ import About from './AboutComponent';
 import Contact from './ContactComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
-import { PROMOTIONS } from '../shared/promotions';
-import { LEADERS } from '../shared/leaders';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dishes: DISHES,
-      comments: COMMENTS,
-      promotions: PROMOTIONS,
-      leaders: LEADERS,
-    };
+const mapStateToProps = state => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders
   }
-
+}
+class Main extends Component {
+  constructor(props){
+    super (props);
+  }
   render() {
     const HomePage = () => {
-      const { dishes, promotions, leaders } = this.state;
+      const { dishes, promotions, leaders } = this.props;
       return (
         <Home
           dish={dishes.filter(dish => dish.featured)[0]}
@@ -36,7 +34,7 @@ class Main extends Component {
     };
 
     const DishWithId = ({ match }) => {
-      const { dishes, comments } = this.state;
+      const { dishes, comments } = this.props;
       return (
         <DishDetail
           dish={
@@ -51,7 +49,7 @@ class Main extends Component {
       );
     };
 
-    const { dishes, leaders } = this.state;
+    const { dishes, leaders } = this.props;
     return (
       <Fragment>
         <Header />
@@ -76,4 +74,5 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(connect((mapStateToProps), {})(Main));
+// Since we are using Router, it's important to surround this with withRouter()
