@@ -28,7 +28,7 @@ const RenderDish = ({ dish }) => {
   }
 };
 
-const RenderComments = ({ comments }) => {
+const RenderComments = ({ comments, addComment, dishId}) => {
   const kommente =
     comments != null
       ? comments.map(komment => {
@@ -50,7 +50,7 @@ const RenderComments = ({ comments }) => {
 };
 
 const DishDetail = props => {
-  const { dish, comments } = props;
+  const { dish, comments, addComment } = props;
   return (
     <div className='container'>
       <div className='row'>
@@ -73,10 +73,10 @@ const DishDetail = props => {
         {comments !== null && (
             <ul className='list-group'>
               <h4>Comments</h4>
-              <RenderComments comments={comments} />
+              <RenderComments comments={comments} addComment={addComment} dishId={dish.id} />
             </ul>
         )}
-          <CommentForm />
+          <CommentForm dishId={dish.id} addComment={addComment} />
         </div>
       </div>
     </div>

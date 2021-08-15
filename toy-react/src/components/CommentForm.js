@@ -21,9 +21,14 @@ export default class CommentForm extends Component {
             isModalOpen: false,
         }
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     toggleModal() {
         this.setState({ isModalOpen: !this.state.isModalOpen });
+    }
+    handleSubmit(values){
+        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
     }
     render() {
         return (
@@ -35,7 +40,7 @@ export default class CommentForm extends Component {
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
-                        <LocalForm className='container' onSubmit={this.handleLogin}>
+                        <LocalForm className='container' onSubmit={this.handleSubmit}>
                             <Row className='form-group'>
                                 <Label className='form-label'>Rating</Label>
                                 <Control.select
