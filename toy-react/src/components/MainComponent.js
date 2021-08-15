@@ -9,6 +9,7 @@ import Footer from './FooterComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addComment, fetchDishes } from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
 
 const mapStateToProps = state => ({
     dishes: state.dishes,
@@ -19,7 +20,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-  fetchDishes: () => {dispatch(fetchDishes())}
+  fetchDishes: () => { dispatch(fetchDishes()) },
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback')) }
 })
 
 class Main extends Component {
@@ -61,7 +63,7 @@ class Main extends Component {
       );
     };
 
-    const { dishes, leaders } = this.props;
+    const { dishes, leaders, resetFeedbackForm } = this.props;
     return (
       <Fragment>
         <Header />
@@ -77,7 +79,7 @@ class Main extends Component {
             component={() => <About leaders={leaders} />}
           />
           <Route path='/menu/:dishId' component={DishWithId} />
-          <Route exact path='/contactus' component={Contact} />
+          <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={resetFeedbackForm} />} />
           <Redirect to='/home' />
         </Switch>
         <Footer />
