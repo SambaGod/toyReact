@@ -10,10 +10,12 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
+import { Loading } from './LoadingComponent';
 
-const RenderDish = ({ dish }) => {
+const RenderDish = ({ dish, isLoading, errMess }) => {
+  const { image, name, description } = dish; 
+
   if (dish !== null) {
-    const { image, name, description } = dish;
     return (
       <Card>
         <CardImg top width='100%' src={image} alt={name} />
@@ -50,7 +52,27 @@ const RenderComments = ({ comments, addComment, dishId}) => {
 };
 
 const DishDetail = props => {
-  const { dish, comments, addComment } = props;
+  const { dish, comments, addComment, isLoading, errMess } = props;
+
+  if (isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
+      </div>
+    );
+  }
+  else if (errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>{errMess}</h4>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='container'>
       <div className='row'>
