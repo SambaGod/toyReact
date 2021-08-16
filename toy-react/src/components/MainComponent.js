@@ -10,6 +10,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => ({
     dishes: state.dishes,
@@ -70,25 +71,29 @@ class Main extends Component {
       );
     };
 
-    const { dishes, leaders, resetFeedbackForm } = this.props;
+    const { dishes, leaders, resetFeedbackForm, location } = this.props;
     return (
       <Fragment>
         <Header />
-        <Switch>
-          <Route path='/home' component={HomePage} />
-          <Route
-            exact
-            path='/menu'
-            component={() => <Menu dishes={dishes} />}
-          />
-          <Route
-            path='/aboutus'
-            component={() => <About leaders={leaders} />}
-          />
-          <Route path='/menu/:dishId' component={DishWithId} />
-          <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={resetFeedbackForm} />} />
-          <Redirect to='/home' />
-        </Switch>
+        <TransitionGroup>
+          <CSSTransition key={location.key} classNames='page' timeout={300}>
+            <Switch>
+              <Route path='/home' component={HomePage} />
+              <Route
+                exact
+                path='/menu'
+                component={() => <Menu dishes={dishes} />}
+              />
+              <Route
+                path='/aboutus'
+                component={() => <About leaders={leaders} />}
+              />
+              <Route path='/menu/:dishId' component={DishWithId} />
+              <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={resetFeedbackForm} />} />
+              <Redirect to='/home' />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
         <Footer />
       </Fragment>
     );

@@ -8,3 +8,6 @@ This is my toy Redux project
 # Run JSON-Server
 - `cd json-server`
 - `json-server --watch db.json -d 2000 -p 3001`
+
+# Animation libraries
+- `npm i react-transition-group react-animation-components prop-types --save`

@@ -12,19 +12,24 @@ import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const RenderDish = ({ dish }) => {
   const { image, name, description } = dish; 
 
   if (dish !== null) {
     return (
-      <Card>
-        <CardImg top width='100%' src={baseUrl + image} alt={name} />
-        <CardBody>
-          <CardTitle tag='h2'>{name}</CardTitle>
-          <CardText>{description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform in transformProps={{
+        exitTransform: 'scale(0.5) translateY(-50%)'
+      }}>
+        <Card>
+          <CardImg top width='100%' src={baseUrl + image} alt={name} />
+          <CardBody>
+            <CardTitle tag='h2'>{name}</CardTitle>
+            <CardText>{description}</CardText>
+          </CardBody>
+        </Card>
+      </FadeTransform>
     );
   } else {
     return <div></div>;
@@ -49,7 +54,11 @@ const RenderComments = ({ comments }) => {
           );
         })
       : '';
-  return <li className='list-group-item'>{kommente}</li>;
+  return (
+    <Fade in>
+      <li className='list-group-item'>{kommente}</li>
+    </Fade>
+  );
 };
 
 const DishDetail = props => {
@@ -96,7 +105,9 @@ const DishDetail = props => {
         {comments !== null && (
             <ul className='list-group'>
               <h4>Comments</h4>
-              <RenderComments comments={comments} postComment={postComment} dishId={dish.id} />
+              <Stagger in>
+                <RenderComments comments={comments} postComment={postComment} dishId={dish.id} />
+              </Stagger>
             </ul>
         )}
           <CommentForm dishId={dish.id} postComment={postComment} />
