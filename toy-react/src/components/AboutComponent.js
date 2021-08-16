@@ -9,20 +9,23 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
+import { Fade } from 'react-animation-components';
 
 const RenderLeader = ({ leader }) => {
   const { image, name, designation, description } = leader;
   return (
-    <Media className='row pb-5'>
-      <Media className='col-2 pb-3'>
-        <Media src={baseUrl + image} width='90%' alt='Generic placeholder image' />
+    <Fade in>
+      <Media className='row pb-5'>
+        <Media className='col-2 pb-3'>
+          <Media src={baseUrl + image} width='90%' alt='Generic placeholder image' />
+        </Media>
+        <Media className='col-9' body>
+          <Media heading>{name}</Media>
+          <p>{designation}</p>
+          <p>{description}</p>
+        </Media>
       </Media>
-      <Media className='col-9' body>
-        <Media heading>{name}</Media>
-        <p>{designation}</p>
-        <p>{description}</p>
-      </Media>
-    </Media>
+    </Fade>
   );
 };
 

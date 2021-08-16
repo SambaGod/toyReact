@@ -183,3 +183,49 @@ export const leadersFailed = (errmess) => ({
     type: ActionTypes.LEADERS_FAILED,
     payload: errmess
 });
+
+export const addFeedback = (feedback) => ({
+    type: ActionTypes.ADD_FEEDBACK,
+    pyload: {
+        feedback: feedback
+    }
+});
+
+export const postFeedback = (values) => dispatch => {
+    const newFeedback = {
+        firstname: values.firstname,
+        lastname: values.lastname,
+        telnum: values.telnum,
+        email: values.email,
+        agree: values.agree,
+        contactType: values.contactType,
+        message: values.message
+    }
+    newFeedback.date = new Date().toISOString();
+    return fetch(baseUrl + 'feedback', {
+        method: 'POST',
+        body: JSON.stringify(newFeedback),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if(response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(response => dispatch(addFeedback(response)))
+    .catch(error => {console.log('Post feedback ', error.message);
+        alert('Your feedback could not be posted \nError: ' + error.message);})
+}
