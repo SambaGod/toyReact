@@ -53,7 +53,7 @@ const RenderComments = ({ comments }) => {
 };
 
 const DishDetail = props => {
-  const { dish, comments, addComment, isLoading, errMess } = props;
+  const { dish, comments, postComment, isLoading, errMess } = props;
 
   if (isLoading) {
     return (
@@ -96,10 +96,10 @@ const DishDetail = props => {
         {comments !== null && (
             <ul className='list-group'>
               <h4>Comments</h4>
-              <RenderComments comments={comments} addComment={addComment} dishId={dish.id} />
+              <RenderComments comments={comments} postComment={postComment} dishId={dish.id} />
             </ul>
         )}
-          <CommentForm dishId={dish.id} addComment={addComment} />
+          <CommentForm dishId={dish.id} postComment={postComment} />
         </div>
       </div>
     </div>
