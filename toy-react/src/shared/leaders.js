@@ -3,7 +3,7 @@ export const LEADERS = [
     id: 0,
     name: 'Peter Pan',
     image:
-      'https://cdn.pixabay.com/photo/2018/11/08/23/25/asian-3803525_1280.jpg',
+      'images/alberto.png',
     designation: 'Chief Epicurious Officer',
     abbr: 'CEO',
     featured: false,
@@ -14,7 +14,7 @@ export const LEADERS = [
     id: 1,
     name: 'Dhanasekaran Witherspoon',
     image:
-      'https://cdn.pixabay.com/photo/2018/11/08/23/25/asian-3803525_1280.jpg',
+      'images/alberto.png',
     designation: 'Chief Food Officer',
     abbr: 'CFO',
     featured: false,
@@ -25,7 +25,7 @@ export const LEADERS = [
     id: 2,
     name: 'Agumbe Tang',
     image:
-      'https://cdn.pixabay.com/photo/2018/11/08/23/25/asian-3803525_1280.jpg',
+      'images/alberto.png',
     designation: 'Chief Taste Officer',
     abbr: 'CTO',
     featured: false,
@@ -36,7 +36,7 @@ export const LEADERS = [
     id: 3,
     name: 'Alberto Somayya',
     image:
-      'https://cdn.pixabay.com/photo/2018/11/08/23/25/asian-3803525_1280.jpg',
+      'images/alberto.png',
     designation: 'Executive Chef',
     abbr: 'EC',
     featured: true,

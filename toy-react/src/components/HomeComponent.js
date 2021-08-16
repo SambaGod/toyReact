@@ -8,6 +8,7 @@ import {
   CardSubtitle,
 } from 'reactstrap';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderCard({ item, isLoading, errMess }) {
   if (isLoading) {
@@ -24,7 +25,7 @@ function RenderCard({ item, isLoading, errMess }) {
     const { image, name, designation, description } = item;
     return (
       <Card>
-        <CardImg src={image} alt={name} />
+        <CardImg src={baseUrl + image} alt={name} />
         <CardBody>
           <CardTitle>
             <strong>{name}</strong>
@@ -38,7 +39,7 @@ function RenderCard({ item, isLoading, errMess }) {
 }
 
 function Home(props) {
-  const { dish, promotion, leader, dishesLoading, dishesErrMess } = props;
+  const { dish, promotion, leader, dishesLoading, dishesErrMess, promosLoading, promosErrMess } = props;
   return (
     <div className='container'>
       <div className='row align-items-start'>
@@ -46,7 +47,7 @@ function Home(props) {
           <RenderCard item={dish} isLoading={dishesLoading} errMess={dishesErrMess} />
         </div>
         <div className='col-12 col-md m-1'>
-          <RenderCard item={promotion} />
+          <RenderCard item={promotion} isLoading={promosLoading} errMess={promosErrMess} />
         </div>
         <div className='col-12 col-md m-1'>
           <RenderCard item={leader} />

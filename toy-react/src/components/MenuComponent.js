@@ -8,13 +8,14 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 const RenderMenuItem = ({ dish }) => {
   const { id, image, name } = dish;
   return (
     <Card>
       <Link to={`/menu/${id}`}>
-        <CardImg top width='100%' src={image} alt={name} />
+        <CardImg top width='100%' src={baseUrl + image} alt={name} />
         <CardImgOverlay>
           <CardTitle tag='h2'>{name}</CardTitle>
         </CardImgOverlay>

@@ -8,7 +8,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment, fetchDishes } from '../redux/ActionCreators';
+import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 
 const mapStateToProps = state => ({
@@ -21,13 +21,17 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
   fetchDishes: () => { dispatch(fetchDishes()) },
-  resetFeedbackForm: () => { dispatch(actions.reset('feedback')) }
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
+  fetchComments: () => { dispatch(fetchComments()) },
+  fetchPromos: () => { dispatch(fetchPromos()) },
 })
 
 class Main extends Component {
 
   componentDidMount() {
     this.props.fetchDishes();
+    this.props.fetchComments();
+    this.props.fetchPromos();
   }
   
   render() {
@@ -38,7 +42,9 @@ class Main extends Component {
           dish={dishes.dishes.filter(dish => dish.featured)[0]}
           dishesLoading={dishes.isLoading}
           dishesErrMess={dishes.errMess}
-          promotion={promotions.filter(promotion => promotion.featured)[0]}
+          promotion={promotions.promotions.filter(promotion => promotion.featured)[0]}
+          promosLoading={promotions.isLoading}
+          promosErrMess={promotions.errMess}
           leader={leaders.filter(leader => leader.featured)[0]}
         />
       );
@@ -55,9 +61,10 @@ class Main extends Component {
           }
           isLoading={dishes.isLoading}
           errMess={dishes.errMess}
-          comments={comments.filter(
+          comments={comments.comments.filter(
             comment => comment.dishId === parseInt(match.params.dishId, 10)
           )}
+          commentsErrMess={comments.errMess}
           addComment = {addComment}
         />
       );

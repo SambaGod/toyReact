@@ -11,14 +11,15 @@ import {
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
-const RenderDish = ({ dish, isLoading, errMess }) => {
+const RenderDish = ({ dish }) => {
   const { image, name, description } = dish; 
 
   if (dish !== null) {
     return (
       <Card>
-        <CardImg top width='100%' src={image} alt={name} />
+        <CardImg top width='100%' src={baseUrl + image} alt={name} />
         <CardBody>
           <CardTitle tag='h2'>{name}</CardTitle>
           <CardText>{description}</CardText>
@@ -30,7 +31,7 @@ const RenderDish = ({ dish, isLoading, errMess }) => {
   }
 };
 
-const RenderComments = ({ comments, addComment, dishId}) => {
+const RenderComments = ({ comments }) => {
   const kommente =
     comments != null
       ? comments.map(komment => {
